@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybersecurity Assessment | Revenue Monster</title>
+    <link rel="icon" href="https://rm-landing-web-assets.oss-ap-southeast-3.aliyuncs.com/icons/RM.svg" type="image/svg+xml">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0B0121;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.08);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-card-hover: rgba(124, 68, 238, 0.5);
+            
+            --rm-purple: #A400EB;
+            --rm-violet: #7C44EE;
+            --rm-royal: #3848FB;
+            --rm-cyan: #38BDF8;
+            
+            --accent-green: #4ADE80;
+            --accent-amber: #F59E0B;
+            --accent-red: #F87171;
+            
+            --text-main: #FFFFFF;
+            --text-sub: #94A3B8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: #F1F5F9;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ambient background glow */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 0;
+            background: 
+                radial-gradient(circle at 85% 15%, rgba(164, 0, 235, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 15% 85%, rgba(56, 72, 251, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(11, 1, 33, 0.6) 0%, transparent 100%);
+        }
+
+        .header-section {
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .rm-logo {
+            height: 36px;
+            width: auto;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 2px 10px rgba(0,0,0,0.5));
+        }
+
+        .back-nav {
+            margin-bottom: 16px;
+        }
+
+        .back-link {
+            color: var(--rm-cyan);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #FFFFFF;
+        }
+
+        h1 {
+            margin: 0 0 8px 0;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #A400EB 0%, #7C44EE 36.54%, #3848FB 70%, #38BDF8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            color: var(--text-sub);
+            margin: 0;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .quiz-container {
+            position: relative;
+            z-index: 1;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 20px;
+            padding: 36px 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        @media (max-width: 640px) {
+            .quiz-container {
+                padding: 24px 20px;
+            }
+            h1 {
+                font-size: 26px;
+            }
+        }
+        
+        /* Registration Form */
+        #registrationForm {
+            display: flex;
+            flex-direction: column;
+            gap: 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            color: #CBD5E1;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input, .form-group select {
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #F1F5F9;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            border-color: var(--rm-violet);
+            box-shadow: 0 0 15px rgba(124, 68, 238, 0.3);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .form-group select option {
+            background-color: #0B0121;
+            color: #FFFFFF;
+        }
+
+        /* Quiz elements */
+        #quizWrapper {
+            display: none;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h3 {
+            color: #FFFFFF;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0 0 24px 0;
+            line-height: 1.45;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .opt-label {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 16px 20px;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            color: #E2E8F0;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .opt-label:hover {
+            background-color: rgba(124, 68, 238, 0.12);
+            border-color: rgba(124, 68, 238, 0.4);
+            transform: translateX(4px);
+        }
+
+        input[type="radio"] {
+            margin-right: 16px;
+            accent-color: var(--rm-violet);
+            transform: scale(1.25);
+            cursor: pointer;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        button.btn-primary {
+            background: linear-gradient(90deg, #A400EB 0%, #7C44EE 35%, #3848FB 70%, #38BDF8 100%);
+            color: #FFFFFF;
+            border: none;
+            padding: 13px 28px;
+            border-radius: 9999px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 0.98rem;
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 15px rgba(124, 68, 238, 0.4);
+            font-family: inherit;
+        }
+
+        button.btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(124, 68, 238, 0.6);
+            filter: brightness(1.1);
+        }
+
+        button.btn-secondary {
+            background: rgba(255, 255, 255, 0.08);
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 13px 24px;
+            border-radius: 9999px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.98rem;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        button.btn-secondary:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        button:disabled {
+            background: rgba(255, 255, 255, 0.04);
+            color: #64748B;
+            border-color: transparent;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .results {
+            display: none;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 3.2rem;
+            font-weight: 900;
+            margin: 20px 0;
+            background: linear-gradient(90deg, var(--rm-cyan), var(--rm-royal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .feedback {
+            color: #CBD5E1;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .correct-answer { 
+            color: var(--accent-green); 
+            font-weight: 600;
+        }
+        .wrong-answer { 
+            color: var(--accent-red); 
+            font-weight: 600;
+        }
+        
+        #savingData {
+            color: var(--accent-amber);
+            margin-top: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+
+    <div class="header-section">
+        <a href="index.html" class="back-link">&larr; Back to Presentation</a>
+        <img src="https://rm-landing-web-assets.oss-ap-southeast-3.aliyuncs.com/icons/RM.svg" alt="Revenue Monster" class="rm-logo">
+        <h1>Security Awareness Assessment</h1>
+        <p class="subtitle">Revenue Monster Sdn Bhd • FinTech Compliance</p>
+    </div>
+
+    <div class="quiz-container">
+        
+        <!-- Registration Form -->
+        <div id="registrationForm">
+            <h3 style="text-align: center; color: #FFFFFF; margin-bottom: 10px;">Please sign in to start the assessment</h3>
+            <p style="text-align: center; color: var(--text-sub); margin-top: 0; font-size: 14px;">Passing score is 16/20 (80%). Your results will be recorded.</p>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="userName" placeholder="e.g. John Doe" required>
+            </div>
+            <div class="form-group">
+                <label>Work Email</label>
+                <input type="email" id="userEmail" placeholder="your.name@revenuemonster.my" required>
+            </div>
+            <div class="form-group">
+                <label>Department</label>
+                <select id="userDept" required>
+                    <option value="" disabled selected>Select your department</option>
+                    <option value="Business Innovation">Business Innovation</option>
+                    <option value="Business Operations">Business Operations</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="C-Level">C-Level</option>
+                    <option value="Finance">Finance</option>
+                    <option value="HR and Admin">HR and Admin</option>
+                    <option value="Brand and Marketing">Brand and Marketing</option>
+                    <option value="Project Management">Project Management</option>
+                    <option value="Tech">Tech</option>
+                    <option value="Wetix">Wetix</option>
+                </select>
+            </div>
+            <button class="btn-primary" onclick="startQuiz()" style="margin-top: 10px; width: 100%;">Start Assessment &rarr;</button>
+        </div>
+
+        <!-- Quiz Area -->
+        <div id="quizWrapper">
+            <div id="quiz">
+                <!-- Questions injected via JS -->
+            </div>
+            
+            <div class="controls">
+                <button id="prevBtn" class="btn-secondary" onclick="prevQuestion()" disabled>Previous</button>
+                <span id="progress" style="color: var(--rm-cyan); font-weight: 700; font-size: 15px;">1 / 20</span>
+                <button id="nextBtn" class="btn-primary" onclick="nextQuestion()">Next</button>
+            </div>
+        </div>
+
+        <!-- Results Area -->
+        <div id="results" class="results">
+            <h2 style="font-size: 26px; font-weight: 800; color: #FFFFFF; margin-bottom: 8px;">Assessment Complete, <span id="displayName"></span>!</h2>
+            <p style="color: var(--text-sub); margin-top: 0;">Your results have been submitted.</p>
+            <div class="score">Score: <span id="scoreValue">0</span>/20</div>
+            <h2 id="passFailMsg" style="margin: 20px 0; font-size: 22px;"></h2>
+            <button id="retakeBtn" class="btn-primary" style="display:none; margin: 0 auto 30px auto;" onclick="location.reload()">Retake Assessment</button>
+            <div id="savingData">Saving your score...</div>
+            <div id="feedbackList" class="feedback"></div>
+        </div>
+    </div>
+
+    <script>
+        const quizData = [
+            { q: "1. Why is cybersecurity particularly critical at Revenue Monster?", options: ["A) Because we are an e-commerce platform", "B) Because we operate as a core FinTech company managing sensitive financial data", "C) Because we have a small IT team", "D) Because we want to pass a random audit"], ans: 1 },
+            { q: "2. According to the training, what is typically the 'weakest link' in an organization's cybersecurity?", options: ["A) Outdated firewall software", "B) Weak encryption keys", "C) Human error", "D) Unlocked doors"], ans: 2 },
+            { q: "3. What is the ultimate goal of the Revenue Monster cybersecurity training?", options: ["A) To make everyone an IT expert", "B) To turn every employee into a 'Human Firewall'", "C) To memorize the company's code of conduct", "D) To pass the compliance quiz"], ans: 1 },
+            { q: "4. Which of the following is a potential consequence of a data breach?", options: ["A) Reputational damage and loss of trust", "B) Financial loss and regulatory fines", "C) Operational disruption and inability to process payments", "D) All of the above"], ans: 3 },
+            { q: "5. What is the definition of Phishing?", options: ["A) A type of computer virus that hides in software", "B) Fraudulent emails or messages designed to steal sensitive information", "C) Someone breaking into the office to steal files", "D) Forgetting to lock your computer"], ans: 1 },
+            { q: "6. If you receive a malicious text message prompting you to click a link, what type of attack is this?", options: ["A) Vishing", "B) Phishing", "C) Smishing", "D) Whaling"], ans: 2 },
+            { q: "7. Which of the following is NOT a common warning sign of a phishing attempt?", options: ["A) A sense of artificial urgency and fear", "B) A generic greeting (e.g., 'Dear Customer')", "C) The email addressing you by your exact full name and referencing a recent internal project", "D) Mismatched sender addresses (e.g., admin@revenuem0nster.net)"], ans: 2 },
+            { q: "8. You receive a phone call from someone claiming to be 'IT Support' asking for your password to fix your email. What should you do?", options: ["A) Give them the password, but change it later", "B) Refuse to give your password and verify their identity first", "C) Ask them for their employee ID and then give the password", "D) Provide the password because IT support is trustworthy"], ans: 1 },
+            { q: "9. What is 'Physical Tailgating'?", options: ["A) Following a delivery truck into the parking lot", "B) When a delivery person or unauthorized individual follows you through a secure door", "C) Leaving your laptop unattended in your car", "D) When someone reads your screen from over your shoulder"], ans: 1 },
+            { q: "10. When creating a password, which principle is highly recommended?", options: ["A) Complexity over length", "B) Length over complexity (using passphrases)", "C) Using the same password for all work accounts", "D) Keeping it under 6 characters so you don't forget it"], ans: 1 },
+            { q: "11. Is it acceptable to use your Revenue Monster work password for your personal social media accounts?", options: ["A) Yes, as long as it's a strong password", "B) Yes, if you change it every 30 days", "C) No, you should never reuse your work password for personal accounts", "D) Only for banking apps"], ans: 2 },
+            { q: "12. When you receive a Multi-Factor Authentication (MFA) prompt on your phone that you DID NOT initiate, what should you do?", options: ["A) Approve it just in case the system is syncing", "B) Ignore it, but do not report it", "C) Deny it immediately, as you did not initiate it", "D) Approve it and check your email afterward"], ans: 2 },
+            { q: "13. What is the security standard we must follow to keep credit card data safe?", options: ["A) HIPAA", "B) GDPR", "C) PCI-DSS", "D) ISO 27001"], ans: 2 },
+            { q: "14. What is the 'Rule of Thumb' for handling credit card numbers?", options: ["A) Never write down full credit card numbers or send them via chat/email in plaintext", "B) You can send them via internal Slack, but not email", "C) You can write them down as long as you throw the paper away at the end of the day", "D) They can be emailed if you put 'Confidential' in the subject line"], ans: 0 },
+            { q: "15. What does the 'Clean Desk' policy require?", options: ["A) Wiping your desk with sanitizer daily", "B) Not leaving sensitive documents out on your desk unattended", "C) Keeping your desktop screen free of icons", "D) Organizing your cables neatly"], ans: 1 },
+            { q: "16. What does the term 'Shoulder Surfing' refer to in the context of cybersecurity?", options: ["A) Using someone else's Wi-Fi network without permission", "B) Unauthorized individuals secretly watching your screen to steal sensitive information", "C) A technique used by hackers to intercept emails", "D) Sharing your login credentials with a colleague"], ans: 1 },
+            { q: "17. If you are working from a cafe, what precaution should you take regarding public Wi-Fi?", options: ["A) Only use it if the cafe has a password on the menu", "B) Avoid logging into work systems without using a VPN", "C) It is perfectly safe as long as the website has HTTPS", "D) Turn off your firewall so the connection is faster"], ans: 1 },
+            { q: "18. Why should you never leave your work laptop unattended in your car?", options: ["A) Because the battery will drain quickly", "B) Because of the risk of physical theft of hardware and data", "C) Because it will lose software updates", "D) Because the Wi-Fi might disconnect"], ans: 1 },
+            { q: "19. You accidentally clicked a suspicious link in an email. What is the most important thing to do?", options: ["A) Hide the mistake and hope nothing happens", "B) Unplug the computer and go home", "C) Do not hide it; report it immediately so the threat can be isolated", "D) Delete the email so the virus is removed"], ans: 2 },
+            { q: "20. What is the correct email address to report a cybersecurity incident at Revenue Monster?", options: ["A) hr@revenuemonster.my", "B) admin@revenuemonster.com", "C) mis@revenuemonster.my", "D) support@revenuemonster.com"], ans: 2 }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let userAnswers = new Array(20).fill(null);
+        let userData = {};
+        
+        function startQuiz() {
+            const name = document.getElementById('userName').value.trim();
+            const email = document.getElementById('userEmail').value.trim().toLowerCase();
+            const dept = document.getElementById('userDept').value;
+            
+            if (!name || !email || !dept) {
+                alert("Please fill out all fields to start.");
+                return;
+            }
+
+            if (!email.includes('@')) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+            
+            userData = { name, email, department: dept };
+            document.getElementById('registrationForm').style.display = 'none';
+            document.getElementById('quizWrapper').style.display = 'block';
+            
+            initQuiz();
+        }
+
+        function initQuiz() {
+            const quizEl = document.getElementById("quiz");
+            quizEl.innerHTML = ""; // clear
+            
+            quizData.forEach((item, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.className = `question ${index === 0 ? 'active' : ''}`;
+                
+                const h3 = document.createElement("h3");
+                h3.textContent = item.q;
+                questionDiv.appendChild(h3);
+
+                const optionsDiv = document.createElement("div");
+                optionsDiv.className = "options";
+
+                item.options.forEach((opt, optIndex) => {
+                    const label = document.createElement("label");
+                    label.className = "opt-label";
+                    const input = document.createElement("input");
+                    input.type = "radio";
+                    input.name = `question${index}`;
+                    input.value = optIndex;
+                    input.onclick = () => {
+                        userAnswers[index] = optIndex;
+                        if(index === quizData.length - 1) {
+                            document.getElementById("nextBtn").textContent = "Submit";
+                        }
+                    };
+                    
+                    label.appendChild(input);
+                    label.appendChild(document.createTextNode(opt));
+                    optionsDiv.appendChild(label);
+                });
+
+                questionDiv.appendChild(optionsDiv);
+                quizEl.appendChild(questionDiv);
+            });
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.question').forEach((el, index) => {
+                el.classList.toggle('active', index === currentQuestion);
+            });
+            document.getElementById("prevBtn").disabled = currentQuestion === 0;
+            document.getElementById("progress").textContent = `${currentQuestion + 1} / ${quizData.length}`;
+            
+            if (currentQuestion === quizData.length - 1) {
+                document.getElementById("nextBtn").textContent = userAnswers[currentQuestion] !== null ? "Submit" : "Next";
+            } else {
+                document.getElementById("nextBtn").textContent = "Next";
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                updateUI();
+            }
+        }
+
+        function nextQuestion() {
+            if (userAnswers[currentQuestion] === null) {
+                alert("Please select an answer before proceeding.");
+                return;
+            }
+            if (currentQuestion < quizData.length - 1) {
+                currentQuestion++;
+                updateUI();
+            } else {
+                showResults();
+            }
+        }
+
+        function showResults() {
+            document.getElementById("quizWrapper").style.display = "none";
+            document.getElementById("results").style.display = "block";
+            document.getElementById("displayName").textContent = userData.name;
+
+            let feedbackHTML = "<h3 style='margin-bottom: 15px;'>Review your answers:</h3>";
+            score = 0;
+            quizData.forEach((item, index) => {
+                const userAns = userAnswers[index];
+                const isCorrect = userAns === item.ans;
+                if (isCorrect) score++;
+                
+                feedbackHTML += `<p style='margin-bottom: 8px;'><strong>${item.q}</strong><br/>`;
+                if (isCorrect) {
+                    feedbackHTML += `<span class="correct-answer">✓ Correct: ${item.options[item.ans]}</span></p>`;
+                } else {
+                    feedbackHTML += `<span class="wrong-answer">✗ You answered: ${item.options[userAns]}</span><br/>`;
+                    feedbackHTML += `<span class="correct-answer">✓ Correct answer: ${item.options[item.ans]}</span></p>`;
+                }
+                feedbackHTML += `<hr style="border: 0; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 15px 0;">`;
+            });
+
+            document.getElementById("scoreValue").textContent = score;
+            document.getElementById("feedbackList").innerHTML = feedbackHTML;
+            
+            const passFailMsg = document.getElementById("passFailMsg");
+            const retakeBtn = document.getElementById("retakeBtn");
+            
+            if (score >= 16) {
+                passFailMsg.textContent = "🎉 Congratulations, you passed!";
+                passFailMsg.style.color = "#4ADE80"; // Green
+                retakeBtn.style.display = "none";
+            } else {
+                passFailMsg.textContent = "⚠️ Passing score is 16/20. Please review the slides and try again.";
+                passFailMsg.style.color = "#F87171"; // Red
+                retakeBtn.style.display = "block";
+            }
+            
+            saveScore(score);
+        }
+        
+        function saveScore(finalScore) {
+            const payload = {
+                name: userData.name,
+                email: userData.email,
+                department: userData.department,
+                score: finalScore,
+                total: 20,
+                date: new Date().toISOString()
+            };
+            
+            const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwgB90eqO1PpgZCIUG6Hqj_piLahsZcsyn2Kz9ChaEMHHCSqeY8y4SiSifIs8yJU-14/exec"; 
+            
+            if (!GOOGLE_SHEETS_WEBHOOK_URL) {
+                document.getElementById("savingData").textContent = "(Storage not configured yet - score displayed locally only)";
+                return;
+            }
+            
+            fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                document.getElementById("savingData").style.color = "#4ADE80";
+                document.getElementById("savingData").textContent = "✓ Score successfully saved to database!";
+            }).catch(err => {
+                document.getElementById("savingData").style.color = "#F87171";
+                document.getElementById("savingData").textContent = "Error saving score. Please contact admin.";
+                console.error(err);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,2481 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+    <title>Cybersecurity at Revenue Monster | Security Awareness Training</title>
+    <link rel="icon" href="https://rm-landing-web-assets.oss-ap-southeast-3.aliyuncs.com/icons/RM.svg" type="image/svg+xml">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reset.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/theme/black.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* Official Revenue Monster Brand Theme */
+            --bg-base: #0B0121;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --border-card: rgba(255, 255, 255, 0.08);
+            --border-card-hover: rgba(124, 68, 238, 0.5);
+            
+            --rm-purple: #A400EB;
+            --rm-violet: #7C44EE;
+            --rm-royal: #3848FB;
+            --rm-cyan: #38BDF8;
+            
+            --accent-green: #4ADE80;
+            --accent-amber: #F59E0B;
+            --accent-red: #F87171;
+            
+            --text-main: #FFFFFF;
+            --text-sub: #94A3B8;
+        }
+
+        body, .reveal {
+            background-color: var(--bg-base);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #F1F5F9;
+        }
+
+        .reveal .slides {
+            text-align: left;
+        }
+
+        /* Ambient glowing background orbs based on revenuemonster.my */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 85% 15%, rgba(164, 0, 235, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 15% 85%, rgba(56, 72, 251, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(11, 1, 33, 0.6) 0%, transparent 100%);
+        }
+
+        /* Persistent Top Brand Header */
+        .brand-top-bar {
+            position: fixed;
+            top: 24px;
+            left: 36px;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            pointer-events: auto;
+        }
+
+        .brand-logo-img {
+            height: 28px;
+            width: auto;
+            display: block;
+            filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+        }
+
+        .brand-badge {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--rm-cyan);
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            padding: 3px 10px;
+            border-radius: 9999px;
+        }
+
+        /* Slide Shell Layout */
+        .slide-deck {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 25px 40px 25px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            position: relative;
+        }
+
+        /* Left subtle guide line in brand gradient */
+        .slide-deck::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 30px;
+            bottom: 30px;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--rm-purple), var(--rm-royal), rgba(255, 255, 255, 0.05), transparent);
+            border-radius: 2px;
+        }
+
+        /* Eyebrow and Headings */
+        .eyebrow {
+            font-size: 13.5px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--rm-cyan);
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .slide-title {
+            font-size: 38px !important;
+            font-weight: 800 !important;
+            color: var(--text-main) !important;
+            margin: 0 0 28px 0 !important;
+            letter-spacing: -0.5px;
+            text-transform: none !important;
+            line-height: 1.15 !important;
+        }
+
+        /* Official RM Gradient Text */
+        .rm-gradient-text {
+            background: linear-gradient(90deg, #A400EB 0%, #7C44EE 36.54%, #3848FB 70%, #38BDF8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        /* Generic Card Component with RM glassmorphism */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 16px;
+            padding: 24px;
+            box-sizing: border-box;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: all 0.25s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(124, 68, 238, 0.2);
+        }
+
+        .card.dashed-highlight {
+            border: 1.5px dashed var(--rm-cyan);
+            background: rgba(56, 189, 248, 0.07);
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .card-label {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-size: 20px !important;
+            font-weight: 700 !important;
+            color: var(--text-main) !important;
+            margin: 0 0 10px 0 !important;
+            line-height: 1.25 !important;
+            text-transform: none !important;
+        }
+
+        .card-desc {
+            font-size: 14.5px;
+            line-height: 1.5;
+            color: var(--text-sub);
+            margin: 0;
+            font-weight: 400;
+        }
+
+        /* Grids */
+        .grid-2x2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+            width: 100%;
+        }
+
+        .grid-3col {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 20px;
+            width: 100%;
+        }
+
+        .grid-4col {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-gap: 16px;
+            width: 100%;
+        }
+
+        .grid-5col {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-gap: 14px;
+            width: 100%;
+        }
+
+        .grid-agenda {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 16px 24px;
+            width: 100%;
+        }
+
+        .agenda-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .agenda-item:hover {
+            border-color: var(--border-card-hover);
+            transform: translateX(4px);
+            background: var(--bg-card-hover);
+        }
+
+        .agenda-num {
+            font-size: 20px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--rm-cyan), var(--rm-royal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            min-width: 32px;
+        }
+
+        .agenda-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        /* Slide 1 - Hero Title */
+        .hero-layout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            gap: 40px;
+        }
+
+        .hero-left {
+            flex: 1.2;
+        }
+
+        .hero-right {
+            flex: 0.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 50px !important;
+            font-weight: 900 !important;
+            line-height: 1.15 !important;
+            color: var(--text-main) !important;
+            margin: 15px 0 28px 0 !important;
+            text-transform: none !important;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 22px;
+            color: var(--text-sub);
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .hero-company {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--rm-cyan);
+        }
+
+        .hero-card {
+            width: 290px;
+            height: 420px;
+            border-radius: 28px;
+            background: linear-gradient(145deg, rgba(124, 68, 238, 0.25), rgba(11, 1, 33, 0.95));
+            border: 1px solid rgba(124, 68, 238, 0.4);
+            box-shadow: 0 0 45px rgba(124, 68, 238, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-shield-svg {
+            width: 140px;
+            height: 160px;
+            filter: drop-shadow(0 0 25px rgba(124, 68, 238, 0.9));
+            animation: pulse-glow 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes pulse-glow {
+            from { transform: scale(0.97); filter: drop-shadow(0 0 15px rgba(124, 68, 238, 0.7)); }
+            to { transform: scale(1.03); filter: drop-shadow(0 0 35px rgba(56, 189, 248, 0.95)); }
+        }
+
+        .hero-card-tag {
+            margin-top: 24px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 6px 18px;
+            border-radius: 9999px;
+            background: linear-gradient(90deg, rgba(164, 0, 235, 0.4), rgba(56, 72, 251, 0.4));
+            white-space: nowrap;
+        }
+
+        /* Phishing domain highlight */
+        .domain-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.07);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-main);
+            margin-top: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .domain-fake {
+            color: inherit;
+            font-weight: inherit;
+            background: none;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        /* Action Links */
+        .action-link {
+            color: var(--rm-cyan);
+            text-decoration: underline;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .action-link:hover {
+            color: #C084FC;
+        }
+
+        /* Take Quiz Button */
+        .take-quiz-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .take-quiz-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(124, 68, 238, 0.4);
+            border-radius: 24px;
+            padding: 50px 60px;
+            box-shadow: 0 0 50px rgba(124, 68, 238, 0.25);
+            max-width: 650px;
+        }
+
+        .take-quiz-btn {
+            display: inline-block;
+            padding: 18px 50px;
+            background: linear-gradient(90deg, #A400EB 0%, #7C44EE 35%, #3848FB 70%, #38BDF8 100%);
+            color: #FFFFFF !important;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 800;
+            border-radius: 9999px;
+            box-shadow: 0 10px 30px rgba(124, 68, 238, 0.5);
+            transition: all 0.25s ease;
+            cursor: pointer;
+            margin-top: 25px;
+            letter-spacing: 0.5px;
+        }
+
+        .take-quiz-btn:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(124, 68, 238, 0.7);
+            filter: brightness(1.1);
+        }
+
+        /* QR Button & Modal */
+        .qr-toggle-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #FFFFFF;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+            font-family: inherit;
+        }
+        .qr-toggle-btn:hover {
+            background: rgba(124, 68, 238, 0.3);
+            border-color: var(--rm-violet);
+            box-shadow: 0 0 15px rgba(124, 68, 238, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .qr-modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(11, 1, 33, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        .qr-modal-content {
+            background: #11082C;
+            border: 1px solid rgba(124, 68, 238, 0.5);
+            border-radius: 24px;
+            padding: 36px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(124, 68, 238, 0.3);
+            max-width: 380px;
+            position: relative;
+            animation: modalFadeIn 0.25s ease-out;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .qr-modal-img {
+            background: #FFFFFF;
+            padding: 12px;
+            border-radius: 16px;
+            width: 210px;
+            height: 210px;
+            margin: 18px auto 14px auto;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            display: block;
+        }
+        .qr-modal-close {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            background: transparent;
+            border: none;
+            color: #94A3B8;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+        }
+        .qr-modal-close:hover {
+            color: #FFFFFF;
+        }
+
+        /* Phishing Example Lightbox Modal */
+        .phishing-modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(11, 1, 33, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+        }
+        .phishing-modal-content {
+            background: #11082C;
+            border: 1px solid rgba(124, 68, 238, 0.55);
+            border-radius: 24px;
+            padding: 24px 28px 20px 28px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 50px rgba(124, 68, 238, 0.35);
+            max-width: 960px;
+            width: 95vw;
+            max-height: 94vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            animation: modalFadeIn 0.25s ease-out;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+        .phishing-modal-header {
+            text-align: left;
+            margin-bottom: 12px;
+            padding-right: 36px;
+        }
+        .phishing-modal-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #EF4444;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.35);
+            padding: 3px 10px;
+            border-radius: 9999px;
+            margin-bottom: 6px;
+        }
+        .phishing-modal-title {
+            font-size: 21px !important;
+            font-weight: 800 !important;
+            color: #FFFFFF !important;
+            margin: 0 0 4px 0 !important;
+            text-transform: none !important;
+        }
+        .phishing-modal-subtitle {
+            font-size: 13.5px;
+            color: var(--text-sub);
+            margin: 0;
+        }
+        .phishing-img-wrapper {
+            background: #000000;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            max-height: 56vh;
+        }
+        .phishing-modal-img {
+            width: 100%;
+            height: auto;
+            max-height: 56vh;
+            object-fit: contain;
+            display: block;
+        }
+        .phishing-modal-notes {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 12px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 12.5px;
+            color: #E2E8F0;
+            text-align: left;
+        }
+        .phishing-note-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .phishing-note-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+        .phishing-note-dot.red { background: #EF4444; box-shadow: 0 0 8px #EF4444; }
+        .phishing-note-dot.amber { background: #F59E0B; box-shadow: 0 0 8px #F59E0B; }
+
+        .phishing-modal-close {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            color: #94A3B8;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 4px;
+            line-height: 1;
+            transition: color 0.2s;
+            z-index: 10;
+        }
+        .phishing-modal-close:hover {
+            color: #FFFFFF;
+        }
+
+        .card-pill-tag {
+            font-size: 10.5px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: var(--rm-cyan);
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 2px 8px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+        }
+        .card.card-clickable {
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+        .card.card-clickable:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: var(--rm-cyan);
+            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.25);
+        }
+
+        /* Presenter View Controls Helper */
+        .nav-helper {
+            position: fixed;
+            bottom: 12px;
+            left: 20px;
+            z-index: 100;
+            font-size: 11px;
+            color: #64748B;
+            pointer-events: none;
+        }
+
+        /* Mobile and Tablet Responsiveness */
+        @media screen and (max-width: 768px) {
+            .brand-top-bar {
+                top: 12px;
+                left: 14px;
+                gap: 8px;
+            }
+            .brand-logo-img {
+                height: 22px;
+            }
+            .brand-badge {
+                font-size: 9.5px;
+                padding: 2px 7px;
+                letter-spacing: 1px;
+            }
+            .qr-top-btn-wrapper {
+                top: 10px !important;
+                right: 12px !important;
+            }
+            .qr-toggle-btn {
+                padding: 6px 10px;
+                font-size: 11px;
+                gap: 4px;
+            }
+            .qr-btn-text {
+                display: none;
+            }
+            .nav-helper {
+                display: none !important;
+            }
+            .reveal .controls {
+                bottom: 8px !important;
+                right: 8px !important;
+                transform: scale(0.85);
+                transform-origin: bottom right;
+            }
+            .reveal .progress {
+                height: 3px !important;
+            }
+
+            /* Lightbox modals on mobile */
+            .phishing-modal-backdrop {
+                padding: 10px !important;
+            }
+            .phishing-modal-content {
+                width: 96vw !important;
+                max-height: 92vh !important;
+                padding: 16px 14px !important;
+                border-radius: 16px !important;
+            }
+            .phishing-modal-header {
+                margin-bottom: 8px !important;
+                padding-right: 28px !important;
+            }
+            .phishing-modal-title {
+                font-size: 17px !important;
+                margin-bottom: 4px !important;
+            }
+            .phishing-modal-subtitle {
+                font-size: 12px !important;
+                line-height: 1.35 !important;
+            }
+            .phishing-modal-close {
+                top: 10px !important;
+                right: 12px !important;
+                font-size: 24px !important;
+            }
+            .phishing-img-wrapper {
+                max-height: 40vh !important;
+                border-radius: 8px !important;
+            }
+            .phishing-modal-img {
+                max-height: 40vh !important;
+            }
+            .phishing-modal-notes {
+                grid-template-columns: 1fr !important;
+                gap: 8px !important;
+                margin-top: 10px !important;
+                padding-top: 10px !important;
+            }
+            .phishing-note-item {
+                padding: 8px 10px !important;
+                font-size: 11.5px !important;
+                line-height: 1.35 !important;
+            }
+            .bnm-panel > div:first-child {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 4px !important;
+            }
+            .qr-modal-content {
+                padding: 24px 18px !important;
+                width: 88vw !important;
+                max-width: 320px !important;
+                border-radius: 18px !important;
+            }
+            .qr-modal-img {
+                width: 170px !important;
+                height: 170px !important;
+                margin: 12px auto !important;
+            }
+        }
+
+        /* Mobile Portrait Slide Scaling & Flow */
+        body.is-mobile-portrait .reveal .slides section {
+            overflow-y: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            max-height: 100% !important;
+            height: 100% !important;
+            box-sizing: border-box !important;
+            padding: 56px 14px 40px 14px !important;
+        }
+        body.is-mobile-portrait .reveal .slides section::-webkit-scrollbar {
+            width: 4px;
+        }
+        body.is-mobile-portrait .reveal .slides section::-webkit-scrollbar-thumb {
+            background: rgba(124, 68, 238, 0.4);
+            border-radius: 4px;
+        }
+        body.is-mobile-portrait .slide-deck {
+            padding: 4px 4px 32px 4px !important;
+            width: 100% !important;
+            height: auto !important;
+            min-height: 100% !important;
+            box-sizing: border-box !important;
+        }
+        body.is-mobile-portrait .slide-deck::before {
+            display: none !important;
+        }
+        body.is-mobile-portrait .slide-title {
+            font-size: 24px !important;
+            margin: 0 0 16px 0 !important;
+            line-height: 1.25 !important;
+        }
+        body.is-mobile-portrait .eyebrow {
+            font-size: 11px !important;
+            letter-spacing: 1px !important;
+            margin-bottom: 4px !important;
+        }
+        body.is-mobile-portrait .grid-2x2,
+        body.is-mobile-portrait .grid-3col,
+        body.is-mobile-portrait .grid-4col,
+        body.is-mobile-portrait .grid-5col,
+        body.is-mobile-portrait .grid-agenda {
+            grid-template-columns: 1fr !important;
+            grid-gap: 12px !important;
+        }
+        body.is-mobile-portrait .card {
+            padding: 16px !important;
+            border-radius: 14px !important;
+        }
+        body.is-mobile-portrait .card-icon {
+            width: 28px !important;
+            height: 28px !important;
+            margin-bottom: 10px !important;
+        }
+        body.is-mobile-portrait .card-title {
+            font-size: 17px !important;
+            margin: 0 0 6px 0 !important;
+        }
+        body.is-mobile-portrait .card-desc {
+            font-size: 13.5px !important;
+            line-height: 1.45 !important;
+        }
+        body.is-mobile-portrait .card-label {
+            font-size: 11px !important;
+            margin-bottom: 4px !important;
+        }
+        body.is-mobile-portrait .agenda-item {
+            padding: 12px 14px !important;
+            border-radius: 12px !important;
+            gap: 10px !important;
+        }
+        body.is-mobile-portrait .agenda-num {
+            font-size: 16px !important;
+            min-width: 24px !important;
+        }
+        body.is-mobile-portrait .agenda-text {
+            font-size: 14px !important;
+        }
+        body.is-mobile-portrait .hero-layout {
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            text-align: center !important;
+            gap: 20px !important;
+            height: auto !important;
+            padding: 10px 4px !important;
+        }
+        body.is-mobile-portrait .hero-left,
+        body.is-mobile-portrait .hero-right {
+            flex: unset !important;
+            width: 100% !important;
+        }
+        body.is-mobile-portrait .hero-title {
+            font-size: 30px !important;
+            margin: 10px 0 16px 0 !important;
+            letter-spacing: -0.5px !important;
+        }
+        body.is-mobile-portrait .hero-subtitle {
+            font-size: 16px !important;
+            margin-bottom: 6px !important;
+        }
+        body.is-mobile-portrait .hero-company {
+            font-size: 13.5px !important;
+        }
+        body.is-mobile-portrait .hero-card {
+            width: 220px !important;
+            height: 200px !important;
+            border-radius: 20px !important;
+            margin: 0 auto !important;
+        }
+        body.is-mobile-portrait .hero-shield-svg {
+            width: 72px !important;
+            height: 82px !important;
+        }
+        body.is-mobile-portrait .hero-card-tag {
+            margin-top: 10px !important;
+            font-size: 10px !important;
+            padding: 4px 12px !important;
+        }
+        body.is-mobile-portrait .take-quiz-box {
+            padding: 10px 4px !important;
+            height: auto !important;
+        }
+        body.is-mobile-portrait .take-quiz-card {
+            padding: 28px 18px !important;
+            border-radius: 18px !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+        }
+        body.is-mobile-portrait .take-quiz-btn {
+            font-size: 17px !important;
+            padding: 14px 24px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            margin-top: 18px !important;
+        }
+
+        /* Slide 17 - Attendance Layout */
+        .attendance-layout {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            gap: 36px;
+        }
+
+        .attendance-left {
+            flex: 1.15;
+        }
+
+        .attendance-right {
+            flex: 0.85;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .attendance-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .attendance-step-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border-card);
+            border-radius: 14px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .attendance-step-item:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-card-hover);
+            transform: translateX(4px);
+        }
+
+        .attendance-step-num {
+            font-size: 18px;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--rm-cyan), var(--rm-royal));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            min-width: 26px;
+        }
+
+        .attendance-qr-card {
+            background: linear-gradient(145deg, rgba(124, 68, 238, 0.2), rgba(11, 1, 33, 0.95));
+            border: 1px solid rgba(124, 68, 238, 0.45);
+            border-radius: 24px;
+            padding: 24px 28px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6), 0 0 35px rgba(124, 68, 238, 0.25);
+            max-width: 330px;
+            width: 100%;
+        }
+
+        .attendance-qr-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--rm-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        .attendance-qr-img-wrapper {
+            background: #FFFFFF;
+            padding: 12px;
+            border-radius: 18px;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+        }
+
+        .attendance-qr-img {
+            width: 190px;
+            height: 190px;
+            display: block;
+        }
+
+        .attendance-qr-domain {
+            font-size: 12px;
+            font-weight: 700;
+            color: #FFFFFF;
+            font-family: monospace;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 7px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 14px;
+            word-break: break-all;
+        }
+
+        body.is-mobile-portrait .attendance-layout {
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: flex-start !important;
+            text-align: center !important;
+            gap: 20px !important;
+            height: auto !important;
+            padding: 10px 4px !important;
+        }
+
+        body.is-mobile-portrait .attendance-left,
+        body.is-mobile-portrait .attendance-right {
+            flex: unset !important;
+            width: 100% !important;
+        }
+
+        body.is-mobile-portrait .attendance-step-item {
+            text-align: left !important;
+            padding: 10px 14px !important;
+        }
+
+        body.is-mobile-portrait .attendance-qr-card {
+            margin: 0 auto !important;
+            padding: 18px 20px !important;
+            max-width: 290px !important;
+        }
+
+        body.is-mobile-portrait .attendance-qr-img {
+            width: 160px !important;
+            height: 160px !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-glow"></div>
+    
+    <div class="brand-top-bar">
+        <img src="https://rm-landing-web-assets.oss-ap-southeast-3.aliyuncs.com/icons/RM.svg" alt="Revenue Monster" class="brand-logo-img">
+        <span class="brand-badge">Cybersecurity</span>
+    </div>
+
+    <!-- Audience Link / QR Button on Top Right -->
+    <div class="qr-top-btn-wrapper" style="position: fixed; top: 20px; right: 30px; z-index: 50;">
+        <button onclick="toggleQRModal()" class="qr-toggle-btn" title="Scan to open on phone (Press 'Q')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3"/><path d="M21 21v.01"/><path d="M12 7v3a2 2 0 0 1-2 2H7"/><path d="M3 12h.01"/><path d="M12 3h.01"/><path d="M12 16v.01"/><path d="M16 12h1"/><path d="M21 12v.01"/><path d="M12 21v-1"/></svg>
+            <span class="qr-btn-text">Audience QR Code</span>
+        </button>
+    </div>
+
+    <!-- QR Code Popup Modal -->
+    <div id="qrModal" class="qr-modal-backdrop" onclick="if(event.target === this) toggleQRModal()">
+        <div class="qr-modal-content">
+            <button class="qr-modal-close" onclick="toggleQRModal()">&times;</button>
+            <div style="font-size: 12px; font-weight: 700; color: var(--rm-cyan); text-transform: uppercase; letter-spacing: 1.5px;">Audience Access</div>
+            <h3 style="font-size: 22px; font-weight: 800; color: #FFFFFF; margin: 6px 0 0 0;">Scan to Follow Along</h3>
+            <p style="font-size: 13.5px; color: var(--text-sub); margin: 6px 0 0 0;">Open camera on mobile device</p>
+            <img src="Media/qr_audience.png" alt="Audience QR Code" class="qr-modal-img">
+            <div style="font-size: 14px; font-weight: 700; color: #FFFFFF; font-family: monospace; background: rgba(255,255,255,0.06); padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">
+                cybersecurity.rafifmtt.my
+            </div>
+        </div>
+    </div>
+
+    <!-- Phishing Real Example Lightbox Modal -->
+    <div id="phishingModal" class="phishing-modal-backdrop" onclick="if(event.target === this) togglePhishingModal(false)">
+        <div class="phishing-modal-content">
+            <button class="phishing-modal-close" onclick="togglePhishingModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge">Real-World Incident Example</span>
+                <h3 class="phishing-modal-title">CEO Impersonation Phishing Email</h3>
+                <p class="phishing-modal-subtitle">Actual email received targeting an internal employee, impersonating CEO Lim Kar Aik</p>
+            </div>
+            <div class="phishing-img-wrapper">
+                <img src="Media/phishing_example.png" alt="Phishing Email Example" class="phishing-modal-img">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Mismatched Sender:</strong> Display name reads <em>Lim Kar Aik</em>, but the actual sender header is <code>claire.florent@ntlworld.com</code>.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Baiting Message:</strong> <em>"Is this mail working well?"</em> — A casual probe to verify active recipient attention before initiating fraudulent requests.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Smishing Real Example Lightbox Modal -->
+    <div id="smishingModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleSmishingModal(false)">
+        <div class="phishing-modal-content">
+            <button class="phishing-modal-close" onclick="toggleSmishingModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #F59E0B; background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.35);">Real-World Incident Example</span>
+                <h3 class="phishing-modal-title">Malicious WhatsApp / Smishing Message</h3>
+                <p class="phishing-modal-subtitle">Scammer sending an urgent .zip file disguised as a "Statement of Account" for finance</p>
+            </div>
+            <div class="phishing-img-wrapper">
+                <img src="Media/smishing_clean.png" alt="Smishing Example" class="phishing-modal-img">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Suspicious Attachment:</strong> Received from an Unknown Number delivering a <code>.zip</code> file (<code>PDF_...zip</code>), which typically contains malware or ransomware.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Social Engineering Lure:</strong> Pushes urgency by instructing to <em>"forward to your Finance Manager"</em> and to <em>"open on a computer"</em> to execute malware.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vishing Real Example Lightbox Modal -->
+    <div id="vishingModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleVishingModal(false)">
+        <div class="phishing-modal-content">
+            <button class="phishing-modal-close" onclick="toggleVishingModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #A78BFA; background: rgba(167, 139, 250, 0.15); border-color: rgba(167, 139, 250, 0.35);">Voice Call Phishing</span>
+                <h3 class="phishing-modal-title">How Does Vishing Work?</h3>
+                <p class="phishing-modal-subtitle">Step-by-step breakdown of voice manipulation and credential theft over phone calls</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: #FFFFFF;">
+                <img src="Media/vishing_example.png" alt="How Vishing Works" class="phishing-modal-img">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Authority Impersonation:</strong> Scammers spoof telephone numbers to pose as bank security, regulators, or internal IT helpdesk staff.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Golden Defense Rule:</strong> Never reveal passwords, OTPs, or financial pins over an incoming phone call. Always hang up and verify directly.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Social Engineering Lifecycle Lightbox Modal -->
+    <div id="socialEngineeringModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleSocialEngineeringModal(false)">
+        <div class="phishing-modal-content">
+            <button class="phishing-modal-close" onclick="toggleSocialEngineeringModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #F59E0B; background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.35);">Attack Lifecycle</span>
+                <h3 class="phishing-modal-title">What is Social Engineering?</h3>
+                <p class="phishing-modal-subtitle">How psychological manipulation leads from initial lure to credential and data theft</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: #1D54FE;">
+                <img src="Media/social_engineering_example.png" alt="What is Social Engineering" class="phishing-modal-img">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Multi-Stage Attack:</strong> Lure begins with an email/PDF attachment &rarr; malicious execution &rarr; background credential harvesting &rarr; data exfiltration.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Human Firewall Defense:</strong> Stop the attack chain at Step 2 by verifying unexpected attachments before opening them.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Malware & Ransomware Lightbox Modal -->
+    <div id="malwareModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleMalwareModal(false)">
+        <div class="phishing-modal-content">
+            <button class="phishing-modal-close" onclick="toggleMalwareModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #EF4444; background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.35);">Real Attack Example</span>
+                <h3 class="phishing-modal-title">Malicious APK Delivery (Trojan Malware)</h3>
+                <p class="phishing-modal-subtitle">Threat actors masquerade as couriers (e.g., J&T Express) sending malicious Android APKs to infect phones and steal OTPs</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: #000000;">
+                <img src="Media/malware_ransomware_example.png" alt="Malware APK Scam Example" class="phishing-modal-img">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Malicious Installation (.apk):</strong> Legitimate couriers never distribute tracking apps via WhatsApp file attachments. Installing an APK bypasses app store vetting to intercept SMS banking OTPs and credentials.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Golden Rule:</strong> Never download or install unknown APKs from chat messages. Immediately block the sender and report to IT Security.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sensitive Financial Data / BNM Penalties Lightbox Modal -->
+    <div id="financialDataModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleFinancialDataModal(false)">
+        <div class="phishing-modal-content" style="max-width: 1060px;">
+            <button class="phishing-modal-close" onclick="toggleFinancialDataModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #38BDF8; background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35);">BNM Regulatory Enforcement</span>
+                <h3 class="phishing-modal-title">Real Regulatory Penalties: BNM RMiT & Customer Data Protection</h3>
+                <p class="phishing-modal-subtitle">Official Bank Negara Malaysia administrative monetary penalties imposed on financial institutions for failures in cybersecurity, customer data, and system downtime resilience.</p>
+            </div>
+            
+            <!-- Panel 1: Customer Data & Cybersecurity -->
+            <div id="bnmPanel1" class="bnm-panel" style="margin-bottom: 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <div style="font-size: 12.5px; font-weight: 700; color: #38BDF8; letter-spacing: 0.5px; text-transform: uppercase;">
+                        20 January 2026 • Bank Rakyat — Failure in Cybersecurity & Customer Information Protection
+                    </div>
+                    <span style="font-size: 11px; font-weight: 700; color: #EF4444; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); padding: 2px 8px; border-radius: 9999px;">
+                        Penalty: RM 1,000,000
+                    </span>
+                </div>
+                <div class="phishing-img-wrapper" style="background: #0B1120; border: 1px solid rgba(56, 189, 248, 0.25);">
+                    <img src="Media/bnm_penalty_customer_data.png" alt="BNM Penalty Customer Data Protection" class="phishing-modal-img" style="max-height: 48vh;">
+                </div>
+            </div>
+
+            <!-- Panel 2: System Downtime RMiT -->
+            <div id="bnmPanel2" class="bnm-panel">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                    <div style="font-size: 12.5px; font-weight: 700; color: #38BDF8; letter-spacing: 0.5px; text-transform: uppercase;">
+                        16 June 2025 • BSN & Bank Rakyat — RMiT Critical System Unplanned Downtime
+                    </div>
+                    <span style="font-size: 11px; font-weight: 700; color: #EF4444; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); padding: 2px 8px; border-radius: 9999px;">
+                        Penalties: RM 995,000 & RM 2,850,000
+                    </span>
+                </div>
+                <div class="phishing-img-wrapper" style="background: #0B1120; border: 1px solid rgba(56, 189, 248, 0.25);">
+                    <img src="Media/bnm_penalty_downtime.png" alt="BNM Penalty System Downtime" class="phishing-modal-img" style="max-height: 48vh;">
+                </div>
+            </div>
+
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Customer Information Protection:</strong> Bank Rakyat was fined <strong>RM 1,000,000</strong> under BNM RMiT & Customer Information policies for failing to protect customer data against cybersecurity threats.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>RMiT System Availability:</strong> Penalties of <strong>RM 995,000</strong> and <strong>RM 2,850,000</strong> imposed for exceeding maximum unplanned downtime limits on critical banking interfaces.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FinTech Operations Lightbox Modal -->
+    <div id="fintechOperationsModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleFintechOperationsModal(false)">
+        <div class="phishing-modal-content" style="max-width: 1040px;">
+            <button class="phishing-modal-close" onclick="toggleFintechOperationsModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #38BDF8; background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35);">Revenue Monster Ecosystem</span>
+                <h3 class="phishing-modal-title">Our FinTech Operations: Payment & Merchant Ecosystem</h3>
+                <p class="phishing-modal-subtitle">Core payment gateway, digital vouchers, and appointment booking solutions powering thousands of service businesses in Malaysia.</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: #FFFFFF; border: 1px solid rgba(255, 255, 255, 0.15);">
+                <img src="Media/fintech_operations_example.png" alt="Revenue Monster FinTech Operations" class="phishing-modal-img" style="max-height: 52vh;">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>High Transaction Velocity:</strong> Facilitating in-store smart terminals, online e-commerce checkouts, and recurring merchant settlements requires uninterrupted system availability and zero compromise.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Prime Security Target:</strong> As a central financial bridge connecting merchants, consumers, and banks, our infrastructure must adhere strictly to PCI-DSS, PDPA, and BNM RMiT standards.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sensitive Financial Data Lightbox Modal -->
+    <div id="sensitiveDataModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleSensitiveDataModal(false)">
+        <div class="phishing-modal-content" style="max-width: 1040px;">
+            <button class="phishing-modal-close" onclick="toggleSensitiveDataModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #38BDF8; background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35);">PCI-DSS & PDPA Protection</span>
+                <h3 class="phishing-modal-title">Critical & Sensitive Financial Data</h3>
+                <p class="phishing-modal-subtitle">High-value identity and payment records entrusted to Revenue Monster that require end-to-end encryption, strict access control, and regulatory compliance.</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: #0B1120; border: 1px solid rgba(56, 189, 248, 0.25);">
+                <img src="Media/sensitive_financial_data.png" alt="Sensitive Financial Data Example" class="phishing-modal-img" style="max-height: 52vh;">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Personal & Identity Data (PII):</strong> Malaysian IC (MyKad), full legal names, and residential addresses protected under the Personal Data Protection Act (PDPA).</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Cardholder & Banking Information:</strong> Primary Account Numbers (PAN), expiration dates, and confidential account statements strictly regulated under PCI-DSS and BNM RMiT.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Weakest Link (Human Error) Lightbox Modal -->
+    <div id="weakestLinkModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleWeakestLinkModal(false)">
+        <div class="phishing-modal-content" style="max-width: 680px;">
+            <button class="phishing-modal-close" onclick="toggleWeakestLinkModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #F59E0B; background: rgba(245, 158, 11, 0.15); border-color: rgba(245, 158, 11, 0.35);">Human Error & Operational Risk</span>
+                <h3 class="phishing-modal-title">The Weakest Link: The Human Factor</h3>
+                <p class="phishing-modal-subtitle">Accidental commands, misplaced semicolons, and overlooked permissions often bypass every technical firewall.</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: #0B1120; border: 1px solid rgba(245, 158, 11, 0.25);">
+                <img src="Media/weakest_link_example.png" alt="The Weakest Link Human Error Example" class="phishing-modal-img" style="max-height: 52vh;">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Accidental Execution:</strong> Running <code>DELETE FROM USERS;</code> due to an unintended semicolon executes against the entire table before the WHERE filter is evaluated.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Human vs. Machine Defense:</strong> Firewalls protect networks, but internal operational guardrails and peer reviews are essential to prevent catastrophic human mistakes.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Human Firewall Lightbox Modal -->
+    <div id="humanFirewallModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleHumanFirewallModal(false)">
+        <div class="phishing-modal-content" style="max-width: 960px;">
+            <button class="phishing-modal-close" onclick="toggleHumanFirewallModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #4ADE80; background: rgba(74, 222, 128, 0.15); border-color: rgba(74, 222, 128, 0.35);">Active Defense In Action</span>
+                <h3 class="phishing-modal-title">Good Example of a Human Firewall</h3>
+                <p class="phishing-modal-subtitle">How a vigilant employee intercepts an unsolicited recruitment lure and forces verification through official channels.</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: #0B1120; border: 1px solid rgba(74, 222, 128, 0.25);">
+                <img src="Media/human_firewall_example.png" alt="Human Firewall Example" class="phishing-modal-img" style="max-height: 52vh;">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Out-of-Band Channel Switching:</strong> Threat actors lure targets on professional networks (e.g., LinkedIn) and quickly pivot to unmonitored channels (WhatsApp/Telegram).</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot" style="background: #4ADE80; box-shadow: 0 0 8px #4ADE80;"></span>
+                    <div><strong>Domain Cross-Verification:</strong> The Human Firewall redirects to corporate email, validating the sender's real employer domain and preventing social engineering.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reputational Damage Lightbox Modal -->
+    <div id="reputationalDamageModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleReputationalDamageModal(false)">
+        <div class="phishing-modal-content" style="max-width: 780px;">
+            <button class="phishing-modal-close" onclick="toggleReputationalDamageModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: #EF4444; background: rgba(239, 68, 68, 0.15); border-color: rgba(239, 68, 68, 0.35);">Brand Trust & Partner Perception</span>
+                <h3 class="phishing-modal-title">Reputational Damage: Loss of Merchant Trust</h3>
+                <p class="phishing-modal-subtitle">When a security breach occurs, merchant confidence evaporates overnight — and rebuilding that credibility takes years.</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: #0B1120; border: 1px solid rgba(239, 68, 68, 0.25);">
+                <img src="Media/reputational_damage_example.png" alt="Reputational Damage Merchant Trust Meme" class="phishing-modal-img" style="max-height: 52vh;">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Severe Merchant Churn:</strong> Merchants trust us with their revenue streams and sensitive customer transactions. A breach triggers immediate merchant flight to competitors.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot amber"></span>
+                    <div><strong>Long-Term Brand Recovery:</strong> Regulatory fines can eventually be resolved, but lost credibility across financial institutions, banks, and merchants takes years to restore.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Operational Disruption Lightbox Modal -->
+    <div id="operationalDisruptionModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleOperationalDisruptionModal(false)">
+        <div class="phishing-modal-content" style="max-width: 780px;">
+            <button class="phishing-modal-close" onclick="toggleOperationalDisruptionModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: var(--rm-cyan); background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.35);">Business Continuity & POS Outage</span>
+                <h3 class="phishing-modal-title">Operational Disruption: Merchant Shutter Down</h3>
+                <p class="phishing-modal-subtitle">System lockouts and payment pipeline freezes leave merchants stranded — unable to process daily transactions, accept payments, or settle funds.</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: radial-gradient(circle at center, #1E293B 0%, #0B1120 100%); border: 1px solid rgba(56, 189, 248, 0.25); display: flex; justify-content: center; align-items: center; padding: 28px;">
+                <img src="Media/operational_disruption_example.png" alt="Operational Disruption Merchant Shutter Down" class="phishing-modal-img" style="max-height: 42vh; max-width: 320px; width: auto; object-fit: contain; filter: drop-shadow(0 10px 25px rgba(0,0,0,0.6));">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot" style="background: #38BDF8; box-shadow: 0 0 8px #38BDF8;"></span>
+                    <div><strong>Point-of-Sale Paralysis:</strong> When ransomware or system lockouts hit our processing infrastructure, payment gateways go offline and merchant checkout doors effectively roll shut.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>Frozen Settlements & Cash Flow:</strong> Inability to execute end-of-day batch settlements cuts off merchant liquidity, causing immediate operational havoc for retailer partners.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Regulatory Consequences Lightbox Modal -->
+    <div id="regulatoryConsequencesModal" class="phishing-modal-backdrop" onclick="if(event.target === this) toggleRegulatoryConsequencesModal(false)">
+        <div class="phishing-modal-content" style="max-width: 820px;">
+            <button class="phishing-modal-close" onclick="toggleRegulatoryConsequencesModal(false)" title="Close (Esc)">&times;</button>
+            <div class="phishing-modal-header">
+                <span class="phishing-modal-badge" style="color: var(--rm-violet); background: rgba(168, 85, 247, 0.15); border-color: rgba(168, 85, 247, 0.35);">Regulatory Sanctions & License Revocation</span>
+                <h3 class="phishing-modal-title">Regulatory Consequences: License Revocation & Operating Sanctions</h3>
+                <p class="phishing-modal-subtitle">Non-compliance with Bank Negara Malaysia RMiT and PCI-DSS results in severe administrative fines, revocation of operating licenses, and immediate suspension of payment processing rights.</p>
+            </div>
+            <div class="phishing-img-wrapper" style="background: radial-gradient(circle at center, #1E293B 0%, #0B1120 100%); border: 1px solid rgba(168, 85, 247, 0.25); display: flex; justify-content: center; align-items: center; padding: 20px;">
+                <img src="Media/regulatory_monopoly_jail.jpg" alt="Monopoly Go Directly To Jail BNM RMiT PCI-DSS Audit" class="phishing-modal-img" style="max-height: 52vh; max-width: 100%; width: auto; object-fit: contain; border-radius: 12px; box-shadow: 0 12px 30px rgba(0,0,0,0.6);">
+            </div>
+            <div class="phishing-modal-notes">
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot" style="background: #A855F7; box-shadow: 0 0 8px #A855F7;"></span>
+                    <div><strong>BNM RMiT Non-Compliance:</strong> BNM has statutory enforcement powers under the Financial Services Act to issue public reprimands, multi-million Ringgit fines, and suspend payment operating licenses.</div>
+                </div>
+                <div class="phishing-note-item">
+                    <span class="phishing-note-dot red"></span>
+                    <div><strong>PCI-DSS & Card Schemes:</strong> Revocation of PCI-DSS compliance instantly cuts off connectivity to Visa and Mastercard networks—halting all merchant card acceptance immediately.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-helper" id="navHelper">Use Arrow Keys / Space to Navigate • 'F' for Fullscreen • 'Q' for QR Code</div>
+
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- SLIDE 1: Title -->
+            <section>
+                <div class="slide-deck">
+                    <div class="hero-layout">
+                        <div class="hero-left">
+                            <img src="https://rm-landing-web-assets.oss-ap-southeast-3.aliyuncs.com/icons/RM.svg" alt="Revenue Monster" style="height: 46px; width: auto; margin-bottom: 22px; display: block; filter: drop-shadow(0 4px 14px rgba(0,0,0,0.5));">
+                            <span class="eyebrow">Security Awareness Training</span>
+                            <h1 class="hero-title" style="margin: 10px 0 24px 0 !important;">
+                                Cybersecurity at
+                                <span class="rm-gradient-text">Revenue Monster</span>
+                            </h1>
+                            <p class="hero-subtitle">Our Shared Responsibility</p>
+                            <p class="hero-company">Revenue Monster Sdn Bhd</p>
+                        </div>
+                        <div class="hero-right">
+                            <div class="hero-card">
+                                <img src="https://rm-landing-web-assets.oss-ap-southeast-3.aliyuncs.com/icons/RM.svg" alt="Revenue Monster" style="width: 200px; height: auto; filter: drop-shadow(0 0 30px rgba(124, 68, 238, 0.85));">
+                                <span class="hero-card-tag">RMiT & Cybersecurity</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Welcome everyone to the Security Awareness Training for Revenue Monster.
+                    Security is not just an IT department concern — it is our shared corporate responsibility.
+                </aside>
+            </section>
+
+            <!-- SLIDE 2: Agenda -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Agenda</h2>
+                    <div class="grid-agenda">
+                        <div class="agenda-item">
+                            <span class="agenda-num">01</span>
+                            <span class="agenda-text">Why Cybersecurity Matters to Us</span>
+                        </div>
+                        <div class="agenda-item">
+                            <span class="agenda-num">05</span>
+                            <span class="agenda-text">Physical Security & Remote Work</span>
+                        </div>
+                        <div class="agenda-item">
+                            <span class="agenda-num">02</span>
+                            <span class="agenda-text">Recognizing Threats (Phishing & Social Engineering)</span>
+                        </div>
+                        <div class="agenda-item">
+                            <span class="agenda-num">06</span>
+                            <span class="agenda-text">Incident Reporting</span>
+                        </div>
+                        <div class="agenda-item">
+                            <span class="agenda-num">03</span>
+                            <span class="agenda-text">Password Hygiene & Authentication</span>
+                        </div>
+                        <div class="agenda-item">
+                            <span class="agenda-num">07</span>
+                            <span class="agenda-text">Q&A Session</span>
+                        </div>
+                        <div class="agenda-item">
+                            <span class="agenda-num">04</span>
+                            <span class="agenda-text">Handling Sensitive Data (PCI-DSS Basics)</span>
+                        </div>
+                        <div class="agenda-item dashed-highlight">
+                            <div>
+                                <div style="font-size: 11px; font-weight: 700; color: var(--rm-cyan); text-transform: uppercase; letter-spacing: 1px;">Primary Goal</div>
+                                <div style="font-size: 14.5px; font-weight: 600; color: #FFFFFF; margin-top: 2px;">Turn every employee into a 'Human Firewall'</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Walk through the agenda topics. Emphasize that by the end of today, the goal is for everyone to act as a human firewall.
+                </aside>
+            </section>
+
+            <!-- SLIDE 3: Why Cybersecurity Matters -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Why Cybersecurity Matters</h2>
+                    <div class="grid-2x2">
+                        <div class="card card-clickable" onclick="toggleFintechOperationsModal(true)" title="Click to view Revenue Monster FinTech Operations" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+                            </div>
+                            <h3 class="card-title">FinTech Operations</h3>
+                            <p class="card-desc">We operate as a core FinTech company, processing financial transactions daily for thousands of merchants.</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleSensitiveDataModal(true)" title="Click to view Sensitive Financial Data under protection" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <h3 class="card-title">Sensitive Financial Data</h3>
+                            <p class="card-desc">We manage and protect critical, sensitive financial data for merchants and users across Southeast Asia.</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleWeakestLinkModal(true)" title="Click to view The Weakest Link (Human Error) example" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                            </div>
+                            <h3 class="card-title">The Weakest Link</h3>
+                            <p class="card-desc">Cybercriminals continuously exploit human error rather than firewalls as their primary entry point.</p>
+                        </div>
+                        <div class="card dashed-highlight card-clickable" onclick="toggleHumanFirewallModal(true)" title="Click to view Human Firewall real-world example" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                            </div>
+                            <h3 class="card-title">Goal: 'Human Firewall'</h3>
+                            <p class="card-desc">Turn every single employee into an empowered, vigilant line of defense against cyber threats.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Highlight that technology alone is not enough. Hackers target people through manipulation because people are easier to compromise than encryption. Click any card (FinTech Operations, Sensitive Financial Data, The Weakest Link, or Goal: 'Human Firewall') to reveal real-world illustrations and attack breakdowns.
+                </aside>
+            </section>
+
+            <!-- SLIDE 4: What Happens If We Are Breached? -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">What Happens If We Are Breached?</h2>
+                    <div class="grid-2x2">
+                        <div class="card card-clickable" onclick="toggleReputationalDamageModal(true)" title="Click to view Reputational Damage impact" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--accent-red);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="m12 13-1-1 2-2-3-2 2-2"/></svg>
+                            </div>
+                            <h3 class="card-title">Reputational Damage</h3>
+                            <p class="card-desc">Loss of trust from merchants, financial partners, and retail customers that takes years to rebuild.</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleFinancialDataModal(true)" title="Click to view real Bank Negara Malaysia financial penalties" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg>
+                            </div>
+                            <h3 class="card-title">Financial Loss</h3>
+                            <p class="card-desc">Direct losses, remediation expenses, and hefty fines from regulators (e.g., Bank Negara Malaysia).</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleOperationalDisruptionModal(true)" title="Click to view Operational Disruption impact" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+                            </div>
+                            <h3 class="card-title">Operational Disruption</h3>
+                            <p class="card-desc">System lockouts and an inability to process daily merchant transactions or settlements.</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleRegulatoryConsequencesModal(true)" title="Click to view Regulatory Consequences impact" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--rm-violet);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 13-7.5 7.5c-.83.83-2.17.83-3 0 0 0 0 0 0 0a2.12 2.12 0 0 1 0-3L11 10"/><path d="m16 16 6-6"/><path d="m8 8 6-6"/><path d="m9 7 8 8"/></svg>
+                            </div>
+                            <h3 class="card-title">Regulatory Consequences</h3>
+                            <p class="card-desc">Revocation of licenses and non-compliance penalties under PCI-DSS, PDPA, and BNM RMiT.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Remind the team that in FinTech, a security breach directly impacts our operating license and merchant trust. Click any card on this slide ('Reputational Damage', 'Financial Loss', 'Operational Disruption', or 'Regulatory Consequences') to reveal real-world business and regulatory fallouts.
+                </aside>
+            </section>
+
+            <!-- SLIDE 5: Common Cyber Threats We Face -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Common Cyber Threats We Face</h2>
+                    <div class="grid-3col">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10a6 6 0 0 1-6 6H7a4 4 0 0 1-4-4V7a4 4 0 0 1 8 0v7"/><circle cx="15" cy="4" r="2"/></svg>
+                            </div>
+                            <h3 class="card-title">Phishing</h3>
+                            <p class="card-desc">Fraudulent emails or messages crafted to look legitimate, designed to steal sensitive credentials or financial information.</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleSocialEngineeringModal(true)" title="Click to view Social Engineering lifecycle diagram" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                            </div>
+                            <h3 class="card-title">Social Engineering</h3>
+                            <p class="card-desc">Manipulating individuals into voluntarily handing over passwords or breaking standard physical security protocols.</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleMalwareModal(true)" title="Click to view real-world Malware / APK scam example" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--accent-red);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><rect width="8" height="14" x="8" y="6" rx="4"/><path d="M19 13h4"/><path d="M1 13h4"/><path d="m20 18-3-2"/><path d="m7 16-3 2"/></svg>
+                            </div>
+                            <h3 class="card-title">Malware & Ransomware</h3>
+                            <p class="card-desc">Malicious software capable of locking systems, exfiltrating trade secrets, or encrypting critical databases for ransom.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    These are the 3 major categories of threats an employee encounters on a weekly basis. Click the Social Engineering card to reveal the attack lifecycle diagram, or click Malware & Ransomware to view real-world malicious APK delivery.
+                </aside>
+            </section>
+
+            <!-- SLIDE 6: Types of Phishing -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Types of Phishing</h2>
+                    <div style="margin-bottom: 20px;">
+                        <div class="card" style="padding: 20px 24px;">
+                            <div style="display: flex; align-items: center; gap: 14px;">
+                                <div class="card-icon" style="color: var(--rm-cyan); margin-bottom: 0;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10a6 6 0 0 1-6 6H7a4 4 0 0 1-4-4V7a4 4 0 0 1 8 0v7"/><circle cx="15" cy="4" r="2"/></svg>
+                                </div>
+                                <div>
+                                    <h3 class="card-title" style="margin-bottom: 4px !important;">Definition</h3>
+                                    <p class="card-desc">Impersonating legitimate organizations or colleagues to steal credentials, gain system access, or distribute malware.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid-3col">
+                        <div class="card card-clickable" onclick="togglePhishingModal(true)" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-cyan);">Email</div>
+                            <h3 class="card-title">Phishing</h3>
+                            <p class="card-desc">Deceptive emails disguised as trusted senders to harvest logins, payroll info, or wire transfers.</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleSmishingModal(true)" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-amber);">SMS</div>
+                            <h3 class="card-title">Smishing</h3>
+                            <p class="card-desc">Malicious text messages prompting urgent clicks to 'verify OTP' or 'unlock bank accounts'.</p>
+                        </div>
+                        <div class="card card-clickable" onclick="toggleVishingModal(true)" style="cursor: pointer;">
+                            <div class="card-icon" style="color: var(--rm-violet);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-violet);">Voice Calls</div>
+                            <h3 class="card-title">Vishing</h3>
+                            <p class="card-desc">Phone calls impersonating authority figures, regulators, or internal IT support to extract sensitive credentials.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Explain the distinction between Phishing (email), Smishing (SMS), and Vishing (phone calls). Click on any card (Phishing, Smishing, Vishing) to reveal real-world examples and diagrams.
+                </aside>
+            </section>
+
+            <!-- SLIDE 7: How to Spot a Phishing Attempt -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">How to Spot a Phishing Attempt</h2>
+                    <div class="grid-2x2">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-red);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                            </div>
+                            <h3 class="card-title">Urgency & Fear</h3>
+                            <p class="card-desc"><em>"Your account will be suspended in 24 hours!"</em> — Attackers create artificial panic to force quick, uncalculated action.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.71 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                            </div>
+                            <h3 class="card-title">Unexpected Attachments / Links</h3>
+                            <p class="card-desc">Never click on links or open unexpected attachments (e.g. <code>.zip</code>, <code>.exe</code>, macros) if you weren't expecting them.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-royal);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                            </div>
+                            <h3 class="card-title">Generic Greetings</h3>
+                            <p class="card-desc">Uses generic salutations like <em>"Dear Customer"</em> or <em>"Undisclosed Recipients"</em> instead of addressing you specifically by name.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-purple);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M16 8v5a3 3 0 0 0 6 0v-1a10 10 0 1 0-4 8"/></svg>
+                            </div>
+                            <h3 class="card-title">Mismatched Sender Address</h3>
+                            <p class="card-desc">
+                                Looks like official email, but inspect closely:
+                                <br>
+                                <span class="domain-badge">mis@revenuemonster.my</span> vs 
+                                <span class="domain-badge">mis@revenuernonster.my</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Pay special attention to typosquatting domains (like 'rn' replacing 'm'). Always check the actual sender email headers.
+                </aside>
+            </section>
+
+            <!-- SLIDE 8: Social Engineering -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Social Engineering: The Art of Manipulation</h2>
+                    <div class="grid-3col">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-royal);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-royal);">Scenario 1</div>
+                            <h3 class="card-title">Fake IT Support</h3>
+                            <p class="card-desc">Someone calls pretending to be IT support urgently asking for your password to 'fix your email or VPN'.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 7h.01"/><path d="M17 7h.01"/><path d="M7 17h10"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-amber);">Scenario 2</div>
+                            <h3 class="card-title">Physical Tailgating</h3>
+                            <p class="card-desc">A 'delivery person' or visitor holds the door or follows you closely into a secure office area without badging in.</p>
+                        </div>
+                        <div class="card dashed-highlight">
+                            <div class="card-icon" style="color: var(--accent-green);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/><path d="m9 12 2 2 4-4"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-green);">Golden Rule</div>
+                            <h3 class="card-title">Verify & Protect</h3>
+                            <p class="card-desc">Never give out your password to anyone — legitimate IT will never ask for it. Always verify identities before granting access.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Reiterate: IT staff will NEVER ask for an employee password. If anyone asks, it is an attack.
+                </aside>
+            </section>
+
+            <!-- SLIDE 9: Locking the Front Door -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Locking the Front Door</h2>
+                    <div class="grid-3col">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-2-2"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-cyan);">Principle 1</div>
+                            <h3 class="card-title">Length over Complexity</h3>
+                            <p class="card-desc">Use memorable passphrases with 16+ characters (e.g. <code>'Il0veRM!@'</code> or multi-word phrases) rather than short scrambled words.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-amber);">Principle 2</div>
+                            <h3 class="card-title">No Re-use</h3>
+                            <p class="card-desc">Never reuse your Revenue Monster corporate password for personal social media, streaming, or external sites.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-green);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/><path d="M9 10h6"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-green);">Principle 3</div>
+                            <h3 class="card-title">Multi-Factor Auth (MFA)</h3>
+                            <p class="card-desc">The critical second layer of defense. Approve login prompts ONLY if you personally initiated them right now.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    MFA fatigue attacks occur when attackers spam prompts. Emphasize: NEVER click approve on an unexpected prompt.
+                </aside>
+            </section>
+
+            <!-- SLIDE 10: Handling Merchant & Cardholder Data -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Handling Merchant & Cardholder Data</h2>
+                    <div class="grid-4col">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-cyan);">Standard</div>
+                            <h3 class="card-title">PCI-DSS</h3>
+                            <p class="card-desc">Strict security standards we must strictly adhere to keep credit card data safe.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 14.14 14.14"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-amber);">Rule of Thumb</div>
+                            <h3 class="card-title">No Plaintext</h3>
+                            <p class="card-desc">Never write down card numbers or send PAN/CVV through Slack, email, or chat.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-green);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-green);">Workspace</div>
+                            <h3 class="card-title">Clean Desk</h3>
+                            <p class="card-desc">Don't leave merchant onboarding forms or physical documents out on your desk.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-purple);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-purple);">Quick Lock</div>
+                            <h3 class="card-title">Lock Screen</h3>
+                            <p class="card-desc">Whenever stepping away: <br><strong>Win + L</strong> on PC<br><strong>Ctrl + Cmd + Q</strong> on Mac.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Remind staff of keyboard shortcuts to lock their machine whenever they stand up to get water or coffee.
+                </aside>
+            </section>
+
+            <!-- SLIDE 11: Security Beyond the Office -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Security Beyond the Office</h2>
+                    <div class="grid-4col">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h.01"/><path d="M2 8.82a15 15 0 0 1 20 0"/><path d="M5 12.859a10 10 0 0 1 14 0"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-cyan);">Network</div>
+                            <h3 class="card-title">Public Wi-Fi</h3>
+                            <p class="card-desc">Avoid logging into work portals on cafe or airport Wi-Fi without active VPN encryption.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-amber);">Privacy</div>
+                            <h3 class="card-title">Shoulder Surfing</h3>
+                            <p class="card-desc">Be mindful of people sitting behind or beside you reading sensitive financial information.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-green);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="12" x="3" y="4" rx="2"/><path d="M2 20h20"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-green);">Hardware</div>
+                            <h3 class="card-title">Physical Devices</h3>
+                            <p class="card-desc">Never leave company laptops or test mobile terminals unattended inside your parked car.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-purple);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-purple);">Media</div>
+                            <h3 class="card-title">Removable Media</h3>
+                            <p class="card-desc">Never insert found or untrusted USB drives into corporate workstations.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Physical security is the foundation of data security. Cars and cafes are high-risk zones.
+                </aside>
+            </section>
+
+            <!-- SLIDE 12: Current Security RMiT Compliance -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Current Security RMiT Compliance</h2>
+                    <div class="grid-2x2">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" x2="6" y1="3" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-cyan);">Environment Isolation</div>
+                            <h3 class="card-title">Segregated Test & Prod</h3>
+                            <p class="card-desc">Strict logical and network separation between testing and production development environments to prevent unauthorized changes and data leaks.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-green);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/><path d="M9 10h6"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-green);">Access Control</div>
+                            <h3 class="card-title">Multi-Factor Authentication</h3>
+                            <p class="card-desc">Fully implemented MFA across critical systems to ensure robust identity verification and safeguard corporate access in accordance with BNM RMiT standards.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Bank Negara Malaysia's Risk Management in Technology (RMiT) requirements dictate environment segregation and mandatory MFA.
+                </aside>
+            </section>
+
+            <!-- SLIDE 13: If You See Something, Say Something -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">If You See Something, Say Something</h2>
+                    <div class="grid-3col">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-red);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 1 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-red);">Transparency</div>
+                            <h3 class="card-title">Mistakes Happen</h3>
+                            <p class="card-desc">Accidentally clicked a suspicious link or inputted details? <strong>DO NOT HIDE IT.</strong> Mistakes are handled collaboratively, not punitively.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-amber);">Response Time</div>
+                            <h3 class="card-title">Speed is Key</h3>
+                            <p class="card-desc">Immediate reporting enables the MIS security team to isolate infected credentials or revoke active session tokens before damage spreads.</p>
+                        </div>
+                        <div class="card dashed-highlight">
+                            <div class="card-icon" style="color: var(--accent-green);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-green);">Action</div>
+                            <h3 class="card-title">How to Report</h3>
+                            <p class="card-desc">
+                                Email: <a href="mailto:mis@revenuemonster.my" class="action-link">mis@revenuemonster.my</a>
+                                <br><br>
+                                Call IT Helpdesk: <a href="tel:0107676080" class="action-link">010-7676080</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Crucial takeaway: A no-blame culture for accidental clicks. The worst thing someone can do is stay quiet.
+                </aside>
+            </section>
+
+            <!-- SLIDE 14: Key Takeaways -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Key Takeaways</h2>
+                    <div class="grid-5col">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 3 7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="m13 13 6 6"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-cyan);">01 / Mindset</div>
+                            <h3 class="card-title" style="font-size: 17px !important;">Think Before You Click</h3>
+                            <p class="card-desc" style="font-size: 13px;">Verify links and sender domains before opening files or links.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-amber);">02 / Access</div>
+                            <h3 class="card-title" style="font-size: 17px !important;">Passphrases & MFA</h3>
+                            <p class="card-desc" style="font-size: 13px;">Use strong passphrases combined with multi-factor authentication.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-green);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-green);">03 / Privacy</div>
+                            <h3 class="card-title" style="font-size: 17px !important;">Protect Sensitive Data</h3>
+                            <p class="card-desc" style="font-size: 13px;">Practice clean desk habits and lock your screen when away.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-red);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-red);">04 / Action</div>
+                            <h3 class="card-title" style="font-size: 17px !important;">Report Immediately</h3>
+                            <p class="card-desc" style="font-size: 13px;">Notify security right away if you detect suspicious activity.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-purple);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-purple);">05 / Culture</div>
+                            <h3 class="card-title" style="font-size: 17px !important;">Everyone's Job</h3>
+                            <p class="card-desc" style="font-size: 13px;">Security is a shared responsibility across the entire company.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Summarize the 5 core habits before moving to questions and the quiz.
+                </aside>
+            </section>
+
+            <!-- SLIDE 15: Questions & Discussion -->
+            <section>
+                <div class="slide-deck">
+                    <span class="eyebrow">Security Awareness Training</span>
+                    <h2 class="slide-title">Questions & Discussion</h2>
+                    <div class="grid-2x2">
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--rm-cyan);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--rm-cyan);">Open Floor</div>
+                            <h3 class="card-title">Questions You Have</h3>
+                            <p class="card-desc">Ask about any security policies, guidelines, or tools covered in today's session.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon" style="color: var(--accent-amber);">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+                            </div>
+                            <div class="card-label" style="color: var(--accent-amber);">Sharing</div>
+                            <h3 class="card-title">Scenarios Encountered</h3>
+                            <p class="card-desc">Discuss real-world scenarios, suspicious activities, or edge cases you've experienced at Revenue Monster.</p>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Open the floor for questions. Ask if anyone has received suspicious emails recently.
+                </aside>
+            </section>
+
+            <!-- SLIDE 16: Attendance Check-In -->
+            <section>
+                <div class="slide-deck">
+                    <div class="attendance-layout">
+                        <div class="attendance-left">
+                            <span class="eyebrow">Session Completion</span>
+                            <h2 class="slide-title" style="margin: 0 0 16px 0 !important; font-size: 38px !important;">
+                                Attendance <span class="rm-gradient-text">Check-In</span>
+                            </h2>
+                            <p style="font-size: 16px; color: var(--text-sub); line-height: 1.6; margin: 0 0 24px 0;">
+                                Please scan the QR code to record your official attendance before taking the final quiz assessment.
+                            </p>
+                            
+                            <div class="attendance-steps">
+                                <div class="attendance-step-item">
+                                    <span class="attendance-step-num">01</span>
+                                    <div>
+                                        <strong style="color: #FFFFFF; font-size: 15px;">Scan QR Code</strong>
+                                        <p style="margin: 2px 0 0 0; font-size: 13.5px; color: var(--text-sub);">Use your mobile camera or scanner</p>
+                                    </div>
+                                </div>
+                                <div class="attendance-step-item">
+                                    <span class="attendance-step-num">02</span>
+                                    <div>
+                                        <strong style="color: #FFFFFF; font-size: 15px;">Enter Your Details</strong>
+                                        <p style="margin: 2px 0 0 0; font-size: 13.5px; color: var(--text-sub);">Fill in your <strong>Full Name</strong>, <strong>Department</strong>, and <strong>Position</strong></p>
+                                    </div>
+                                </div>
+                                <div class="attendance-step-item">
+                                    <span class="attendance-step-num" style="background: linear-gradient(90deg, #4ADE80, #38BDF8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">✓</span>
+                                    <div>
+                                        <strong style="color: #FFFFFF; font-size: 15px;">Official Verification</strong>
+                                        <p style="margin: 2px 0 0 0; font-size: 13.5px; color: var(--text-sub);">Logged for BNM RMiT compliance and corporate training records</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 24px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+                                <a href="attendance.html" target="_blank" class="take-quiz-btn" style="font-size: 16px !important; padding: 12px 28px !important; margin-top: 0 !important;">
+                                    Open Form Directly &rarr;
+                                </a>
+                                <span style="font-size: 13.5px; color: var(--text-sub);">
+                                    or visit: <code style="color: var(--rm-cyan); font-weight: 600;">cybersecurity.rafifmtt.my/attendance.html</code>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="attendance-right">
+                            <div class="attendance-qr-card">
+                                <div class="attendance-qr-tag">Official Sign-In</div>
+                                <h3 style="font-size: 20px; font-weight: 800; color: #FFFFFF; margin: 0 0 14px 0;">Scan Attendance</h3>
+                                <div class="attendance-qr-img-wrapper">
+                                    <img src="Media/qr_attendance.png" alt="Attendance Form QR Code" class="attendance-qr-img">
+                                </div>
+                                <div class="attendance-qr-domain">
+                                    cybersecurity.rafifmtt.my/attendance.html
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Remind all participants to scan the QR code and submit their attendance first. Once submitted, advance to the final slide for the quiz assessment.
+                </aside>
+            </section>
+
+            <!-- SLIDE 17: Are You Ready? (Quiz Launch) -->
+            <section>
+                <div class="slide-deck">
+                    <div class="take-quiz-box">
+                        <div class="take-quiz-card">
+                            <span class="eyebrow" style="color: var(--rm-cyan); font-size: 15px;">Final Step</span>
+                            <h2 style="font-size: 42px; font-weight: 900; color: #FFFFFF; margin: 12px 0 16px 0; letter-spacing: -0.5px;">ARE YOU READY?</h2>
+                            <p style="font-size: 17px; color: var(--text-sub); line-height: 1.6; margin: 0 0 20px 0;">
+                                Test your security knowledge with a quick 20-question assessment.
+                                <br>
+                                Passing score: <strong style="color: var(--accent-green);">16 / 20 (80%)</strong>
+                            </p>
+                            <a href="quiz.html" class="take-quiz-btn">TAKE QUIZ &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+                <aside class="notes">
+                    Invite all participants who completed attendance to click 'TAKE QUIZ' and complete their assessment.
+                </aside>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.3.1/plugin/notes/notes.min.js"></script>
+    <script>
+        function toggleQRModal() {
+            const modal = document.getElementById('qrModal');
+            if (!modal) return;
+            const isVisible = modal.style.display === 'flex';
+            modal.style.display = isVisible ? 'none' : 'flex';
+        }
+
+        function togglePhishingModal(show) {
+            const modal = document.getElementById('phishingModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleSmishingModal(show) {
+            const modal = document.getElementById('smishingModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleVishingModal(show) {
+            const modal = document.getElementById('vishingModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleSocialEngineeringModal(show) {
+            const modal = document.getElementById('socialEngineeringModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleMalwareModal(show) {
+            const modal = document.getElementById('malwareModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleFinancialDataModal(show) {
+            const modal = document.getElementById('financialDataModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleFintechOperationsModal(show) {
+            const modal = document.getElementById('fintechOperationsModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleSensitiveDataModal(show) {
+            const modal = document.getElementById('sensitiveDataModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleWeakestLinkModal(show) {
+            const modal = document.getElementById('weakestLinkModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleHumanFirewallModal(show) {
+            const modal = document.getElementById('humanFirewallModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleReputationalDamageModal(show) {
+            const modal = document.getElementById('reputationalDamageModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleOperationalDisruptionModal(show) {
+            const modal = document.getElementById('operationalDisruptionModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        function toggleRegulatoryConsequencesModal(show) {
+            const modal = document.getElementById('regulatoryConsequencesModal');
+            if (!modal) return;
+            if (typeof show === 'boolean') {
+                modal.style.display = show ? 'flex' : 'none';
+            } else {
+                const isVisible = modal.style.display === 'flex';
+                modal.style.display = isVisible ? 'none' : 'flex';
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'q' || e.key === 'Q') {
+                toggleQRModal();
+            }
+            if (e.key === 'Escape') {
+                const regModal = document.getElementById('regulatoryConsequencesModal');
+                if (regModal && regModal.style.display === 'flex') {
+                    regModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const opModal = document.getElementById('operationalDisruptionModal');
+                if (opModal && opModal.style.display === 'flex') {
+                    opModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const repModal = document.getElementById('reputationalDamageModal');
+                if (repModal && repModal.style.display === 'flex') {
+                    repModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const hfModal = document.getElementById('humanFirewallModal');
+                if (hfModal && hfModal.style.display === 'flex') {
+                    hfModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const wlModal = document.getElementById('weakestLinkModal');
+                if (wlModal && wlModal.style.display === 'flex') {
+                    wlModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const sensModal = document.getElementById('sensitiveDataModal');
+                if (sensModal && sensModal.style.display === 'flex') {
+                    sensModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const ftModal = document.getElementById('fintechOperationsModal');
+                if (ftModal && ftModal.style.display === 'flex') {
+                    ftModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const finModal = document.getElementById('financialDataModal');
+                if (finModal && finModal.style.display === 'flex') {
+                    finModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const malModal = document.getElementById('malwareModal');
+                if (malModal && malModal.style.display === 'flex') {
+                    malModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const seModal = document.getElementById('socialEngineeringModal');
+                if (seModal && seModal.style.display === 'flex') {
+                    seModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const vishModal = document.getElementById('vishingModal');
+                if (vishModal && vishModal.style.display === 'flex') {
+                    vishModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const smishModal = document.getElementById('smishingModal');
+                if (smishModal && smishModal.style.display === 'flex') {
+                    smishModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const phishModal = document.getElementById('phishingModal');
+                if (phishModal && phishModal.style.display === 'flex') {
+                    phishModal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+                const modal = document.getElementById('qrModal');
+                if (modal && modal.style.display === 'flex') {
+                    modal.style.display = 'none';
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    return;
+                }
+            }
+        }, true);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPresenter = urlParams.get('presenter') === 'true' || 
+                            urlParams.has('presenter') || 
+                            window.location.hash.includes('presenter=true');
+
+        const activePlugins = [];
+
+        if (isPresenter) {
+            activePlugins.push(RevealNotes);
+            const helper = document.getElementById('navHelper');
+            if (helper) {
+                helper.textContent = "Presenter Mode Active • Press 'S' for Speaker Console • 'F' for Fullscreen • 'Q' for QR Code";
+                helper.style.color = "#38BDF8";
+            }
+        } else {
+            // Audience Mode: Completely purge note elements from the DOM
+            document.querySelectorAll('aside.notes').forEach(el => el.remove());
+
+            // Block 'S' key press entirely
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 's' || e.key === 'S') {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                }
+            }, true);
+        }
+
+        function isMobilePortrait() {
+            return window.innerWidth <= 768 && window.innerHeight > window.innerWidth;
+        }
+
+        function getResponsiveConfig() {
+            const isMobile = isMobilePortrait();
+            if (isMobile) {
+                document.body.classList.add('is-mobile-portrait');
+                const width = 420;
+                const height = Math.max(740, Math.round(width * (window.innerHeight / window.innerWidth)));
+                return {
+                    width: width,
+                    height: height,
+                    margin: 0.02,
+                    minScale: 0.2,
+                    maxScale: 2.0,
+                    center: false,
+                    touch: true
+                };
+            } else {
+                document.body.classList.remove('is-mobile-portrait');
+                return {
+                    width: 1080,
+                    height: 700,
+                    margin: 0.04,
+                    minScale: 0.2,
+                    maxScale: 2.0,
+                    center: true,
+                    touch: true
+                };
+            }
+        }
+
+        const initialConfig = getResponsiveConfig();
+
+        Reveal.initialize(Object.assign({
+            hash: true,
+            progress: true,
+            slideNumber: 'c/t',
+            transition: 'slide',
+            backgroundTransition: 'fade',
+            controls: true,
+            keyboard: true,
+            touch: true,
+            plugins: activePlugins
+        }, initialConfig));
+
+        let resizeTimer = null;
+        function updateResponsiveLayout() {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const config = getResponsiveConfig();
+                Reveal.configure(config);
+                Reveal.layout();
+            }, 100);
+        }
+
+        window.addEventListener('resize', updateResponsiveLayout);
+        window.addEventListener('orientationchange', updateResponsiveLayout);
+    </script>
+</body>
+</html>
