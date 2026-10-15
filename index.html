@@ -666,6 +666,63 @@
             box-shadow: 0 10px 30px rgba(56, 189, 248, 0.25);
         }
 
+        /* Clickable affordance: arrow badge in the top-right corner */
+        .card.card-clickable {
+            position: relative;
+        }
+        .card.card-clickable::before {
+            content: "";
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 30px;
+            height: 30px;
+            border-radius: 9999px;
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-sizing: border-box;
+            transition: all 0.25s ease;
+            pointer-events: none;
+        }
+        .card.card-clickable::after {
+            content: "";
+            position: absolute;
+            top: 23px;
+            right: 23px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--rm-cyan);
+            -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7'/%3E%3Cpath d='M7 7h10v10'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7'/%3E%3Cpath d='M7 7h10v10'/%3E%3C/svg%3E") center / contain no-repeat;
+            transition: transform 0.25s ease, background-color 0.25s ease;
+            pointer-events: none;
+        }
+        .card.card-clickable:hover::before {
+            background: rgba(56, 189, 248, 0.22);
+            border-color: var(--rm-cyan);
+        }
+        .card.card-clickable:hover::after {
+            transform: translate(2px, -2px);
+            background-color: #FFFFFF;
+        }
+        /* Keep title text clear of the arrow badge */
+        .card.card-clickable .card-title,
+        .card.card-clickable .card-label {
+            padding-right: 36px;
+        }
+        body.is-mobile-portrait .card.card-clickable::before {
+            top: 12px;
+            right: 12px;
+            width: 26px;
+            height: 26px;
+        }
+        body.is-mobile-portrait .card.card-clickable::after {
+            top: 18px;
+            right: 18px;
+            width: 14px;
+            height: 14px;
+        }
+
         /* Presenter View Controls Helper */
         .nav-helper {
             position: fixed;
